@@ -16,6 +16,12 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0' // Apache Commons Lang, html 태그 변환용
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // Selenium Java binding
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.23.0'
+
+    // Add WebDriver manager to automatically manage browser drivers
+    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.7.0'
 }
 
 test {
