@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.nhcb'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.postgresql:postgresql:42.7.2' // PostgreSQL JDBC 드라이버
+    implementation 'org.yaml:snakeyaml:2.0' // SnakeYAML
+    implementation 'org.jsoup:jsoup:1.15.3' // Jsoup
+    implementation 'org.apache.commons:commons-lang3:3.12.0' // Apache Commons Lang, html 태그 변환용
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
