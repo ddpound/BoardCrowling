@@ -28,6 +28,9 @@ public class Main {
         System.out.println("프로그램 시작");
         BoardCrowling("https://www.ispf.or.kr/notice/110");
 
+        for (int i = 108; i < 111; i++) {
+            BoardCrowling("https://www.ispf.or.kr/notice/" + i);
+        }
 //
 //        for (int i = 25; i < 112; i++) {
 //            BoardCrowling("https://www.ispf.or.kr/notice/" + i);
@@ -49,8 +52,9 @@ public class Main {
                 System.out.println("없는 글 url : " + url);
             }else{
                 Elements posts = doc.select("#bo_v"); // 게시물 리스트 선택자
-
+                System.out.println("=========================================================");
                 System.out.println("크롤링 시작");
+                System.out.println("접근 URL");
 
                 for (Element post : posts) {
                     count++;
@@ -127,7 +131,7 @@ public class Main {
                                 categoryNumber,
                                 escapedTitle,
                                 date,
-                                content,
+                                escapedContent,
                                 relatedLinks,
                                 fileList,
                                 fileGroupId,
@@ -143,10 +147,10 @@ public class Main {
                     System.out.println("Date: " + date);
                     //System.out.println("Content: " + escapedContent);
                     System.out.println("count " + count);
-                    System.out.println("===================================");
                 }
             }
-
+            System.out.println("크롤링 섹션 종료");
+            System.out.println("===================================");
         } catch (IOException e) {
             e.printStackTrace();
         }

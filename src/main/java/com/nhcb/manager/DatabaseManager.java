@@ -28,6 +28,8 @@ public class DatabaseManager {
 
     private static String saveDir;
 
+    private static String filelocserver; // 서버 경로용
+
     // WebDriver 초기화
     private static WebDriver driver;
 
@@ -41,6 +43,7 @@ public class DatabaseManager {
                 Map<String, String> fileConfig = (Map<String, String>) configData.get("file");
                 this.saveFilePath = fileConfig.get("fileloc");
                 this.saveDir = fileConfig.get("saveDir");
+                this.filelocserver = fileConfig.get("filelocserver");
                 System.out.println("file config check : " + saveFilePath);
                 System.out.println("file config check : " + saveDir);
             } catch (Exception e) {
@@ -173,6 +176,7 @@ public class DatabaseManager {
 
                 String href = downloadLink.getAttribute("href");
                 System.out.println("다운로드 링크 클릭: " + href);
+
                 downloadLink.click();
 
                 String originalFileName = downloadLink.getText();
@@ -212,9 +216,20 @@ public class DatabaseManager {
             if (driver != null) {
                 driver.quit();
             }
+            // 모든 크롬 프로세스를 강제 종료
+            killChromeDriverProcess();
         }
     }
 
+    private static void killChromeDriverProcess() {
+        try {
+            // ChromeDriver 프로세스를 명시적으로 종료
+            Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe");
+            Runtime.getRuntime().exec("taskkill /F /IM chrome.exe");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     // 다운로드된 파일 중 가장 최근 파일을 반환하는 메서드
@@ -257,7 +272,7 @@ public class DatabaseManager {
                                             String RGST_ID,
                                             String UPDN_ID){
 
-        String pathInfo = saveFilePath;
+        String pathInfo = filelocserver;
         LocalDate now = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         pathInfo = pathInfo + now.format(formatter);
