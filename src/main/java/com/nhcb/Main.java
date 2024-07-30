@@ -16,23 +16,18 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Map;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Main {
 
-
     public static void main(String[] args) {
         System.out.println("프로그램 시작");
-        BoardCrowling("https://www.ispf.or.kr/notice/110");
+        BoardCrowling("https://www.ispf.or.kr/notice/106");
 
-        for (int i = 108; i < 111; i++) {
-            BoardCrowling("https://www.ispf.or.kr/notice/" + i);
-        }
-//
-//        for (int i = 25; i < 112; i++) {
+//        for (int i = 90; i < 112; i++) {
 //            BoardCrowling("https://www.ispf.or.kr/notice/" + i);
 //        }
     }
@@ -77,8 +72,22 @@ public class Main {
                         Elements imgElements = contentElement.select("img");
                         for (Element imgElement : imgElements) {
                             String imgUrl = imgElement.attr("src");
-                            String base64Image = convertImageToBase64("https://www.ispf.or.kr/data/editor/",imgUrl);
-                            imgElement.attr("src", "data:image/png;base64," + base64Image);
+                            String fileExtension = getFileExtension(imgUrl);
+                            String newFileName = UUID.randomUUID() + "." + fileExtension;
+
+                            // 이미지 태그 src 속성 수정
+                            String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
+
+                            // 이미지 다운로드
+                            String outputDir = "/WebUpload/ispf/" + today;
+
+                            // 폴더가 없으면 생성
+                            createDirectoryIfNotExists(outputDir);
+
+
+                            downloadImage(imgUrl, outputDir + "/"+ newFileName);
+
+                            imgElement.attr("src", "/ispf/data/editor/" + today + "/" + newFileName + "/show.ajax");
                         }
                     }
                     String content = contentElement != null ? contentElement.html() : "";
@@ -113,7 +122,7 @@ public class Main {
                     String fileGroupId = null;
 
                     // 추출한 href 출력
-                    if(!fileList.isEmpty()) {
+                    if(!fileList.isEmpty() && directInsert) {
                         System.out.println("파일 다운로드 감지");
                         fileGroupId = DatabaseManager.getSeqFileNumber();
                         DatabaseManager.downloadAllFiles(url,fileGroupId);
@@ -145,7 +154,7 @@ public class Main {
                     System.out.println("Category: " + category);
                     System.out.println("Title: " + title);
                     System.out.println("Date: " + date);
-                    //System.out.println("Content: " + escapedContent);
+                    System.out.println("Content: " + content);
                     System.out.println("count " + count);
                 }
             }
@@ -187,5 +196,20 @@ public class Main {
             e.printStackTrace();
             return "";
         }
+    }
+
+
+    private static String getFileExtension(String url) {
+        return url.substring(url.lastIndexOf('.') + 1);
+    }
+
+    private static void downloadImage(String imgUrl, String destinationFile) throws IOException {
+        try (InputStream in = new URL(imgUrl).openStream()) {
+            Files.copy(in, Paths.get(destinationFile));
+        }
+    }
+
+    private static void createDirectoryIfNotExists(String dirPath) throws IOException {
+        Files.createDirectories(Paths.get(dirPath));
     }
 }
