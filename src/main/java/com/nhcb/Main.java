@@ -12,9 +12,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -25,14 +23,24 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("프로그램 시작");
-        BoardCrowling("https://www.ispf.or.kr/notice/106");
+        //BoardCrowling("https://www.ispf.or.kr/notice/25",25);
 
-//        for (int i = 90; i < 112; i++) {
-//            BoardCrowling("https://www.ispf.or.kr/notice/" + i);
-//        }
+        for (int i = 25; i < 30; i++) {
+            BoardCrowling("https://www.ispf.or.kr/notice/" + i, i);
+        }
     }
 
-    public static void BoardCrowling(String url) {
+    public static void appendToFile(String filePath, int i) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(Integer.toString(i));
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void BoardCrowling(String url, int uriIndexNumebr ) {
+        String textFilePath = "C:\\work\\EHS\\crowlingfiles\\indexFile.txt"; // 저장할 파일 경로를 설정하세요.
 
         DatabaseManager dbManager = new DatabaseManager();
         boolean directInsert = true; // true면 직접 삽입, false면 SQL 파일로 내보내기
@@ -128,7 +136,6 @@ public class Main {
                         DatabaseManager.downloadAllFiles(url,fileGroupId);
                     }
 
-
                     if (directInsert) {
                         String categoryNumber = "";
                         if(category.equals("공고")) categoryNumber = "2024030001";
@@ -157,6 +164,7 @@ public class Main {
                     System.out.println("Content: " + content);
                     System.out.println("count " + count);
                 }
+                appendToFile(textFilePath, uriIndexNumebr);
             }
             System.out.println("크롤링 섹션 종료");
             System.out.println("===================================");
@@ -204,7 +212,9 @@ public class Main {
     }
 
     private static void downloadImage(String imgUrl, String destinationFile) throws IOException {
-        try (InputStream in = new URL(imgUrl).openStream()) {
+        String lastUrl = imgUrl;
+        if(!imgUrl.contains("https://www.ispf.or.kr")) lastUrl = "https://www.ispf.or.kr" + imgUrl;
+        try (InputStream in = new URL(lastUrl).openStream()) {
             Files.copy(in, Paths.get(destinationFile));
         }
     }
