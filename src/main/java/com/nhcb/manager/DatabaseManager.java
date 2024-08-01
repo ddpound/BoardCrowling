@@ -1,5 +1,6 @@
 package com.nhcb.manager;
 
+import com.nhcb.config.StaticConfig;
 import com.nhcb.config.YamlConfig;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
@@ -36,7 +37,7 @@ public class DatabaseManager {
     public DatabaseManager() {
         YamlConfig config = new YamlConfig();
         try {
-            connection = DriverManager.getConnection(config.getUrl(), config.getUsername(), config.getPassword());
+            connection = DriverManager.getConnection(StaticConfig.dataBaseUrl, StaticConfig.dbUsername, StaticConfig.dbPassword);
             Yaml yaml = new Yaml();
             try (InputStream in = getClass().getResourceAsStream("/application.yml")) {
                 Map<String, Object> configData = yaml.load(in);

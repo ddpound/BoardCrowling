@@ -1,5 +1,7 @@
 package com.nhcb;
 
+import com.nhcb.config.StaticConfig;
+import com.nhcb.config.YamlConfig;
 import com.nhcb.manager.DatabaseManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -22,12 +24,24 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("프로그램 시작");
-        //BoardCrowling("https://www.ispf.or.kr/notice/25",25);
+        System.out.println("make by youseong");
+        System.out.println("program start....");
 
-        for (int i = 25; i < 30; i++) {
-            BoardCrowling("https://www.ispf.or.kr/notice/" + i, i);
-        }
+        System.out.println("setting start");
+        new YamlConfig(); // 세팅을 위한 시작
+
+        // 패스워드는 보안으로 세팅이 되어있는지 안되어있는지만 체크
+        String passwordIs = StaticConfig.dbPassword != null ? "password setting complete":"password is null";
+
+        System.out.println("DB : " + StaticConfig.dataBaseUrl);
+        System.out.println("username : " + StaticConfig.dbUsername);
+        System.out.println("password : " + passwordIs);
+
+        System.out.println("file location : " + StaticConfig.fileLocation);
+        System.out.println("save dir : " + StaticConfig.saveDir);
+        System.out.println("targetURI : " + StaticConfig.targetURI);
+        System.out.println("Setting end");
+
     }
 
     public static void appendToFile(String filePath, int i) {
