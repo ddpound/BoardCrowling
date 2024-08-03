@@ -20,4 +20,7 @@ public class StaticConfig {
     public static String tableName;
     public static ArrayList<String> columnNameList;
 
+    public static String commandFilePath;
+    public static String commandFileName;
+
 }

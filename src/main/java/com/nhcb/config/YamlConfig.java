@@ -23,8 +23,13 @@ public class YamlConfig {
             StaticConfig.dbUsername = fileConfig.get("saveDir");
 
             // 사이트 세팅
-            Map<String, String> targetURICOnfig = (Map<String, String>) config.get("site");
-            StaticConfig.targetURI = targetURICOnfig.get("targetURI");
+            Map<String, String> targetURIConfig = (Map<String, String>) config.get("site");
+            StaticConfig.targetURI = targetURIConfig.get("targetURI");
+
+            // 명령어 관련 세팅
+            Map<String, String> commandsConfig = (Map<String, String>) config.get("commands");
+            StaticConfig.commandFilePath = commandsConfig.get("filePath");
+            StaticConfig.commandFileName = commandsConfig.get("fileName");
 
         } catch (Exception e) {
             e.printStackTrace();
