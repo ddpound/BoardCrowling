@@ -1,7 +1,9 @@
 package com.nhcb.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nhcb.model.CommandModel;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,7 +20,10 @@ import java.util.List;
 public class CommandSettings {
 
     public void readCommands(CommandModel commandModel){
+        // ObjectMapper 인스턴스를 생성합니다
+        ObjectMapper objectMapper = new ObjectMapper();
         try {
+            CommandModel jacksonCommandModel = objectMapper.readValue(new File("data.json"), CommandModel.class);
             List<String> lines = Files.readAllLines(Paths.get(StaticConfig.commandFilePath).resolve(StaticConfig.commandFileName));
             for (String line : lines) {
 
@@ -43,6 +48,11 @@ public class CommandSettings {
 
                 // targetUrI 일때
                 if(split[0].equals("targetURI")){
+
+                }
+
+                // target으로 시작할때
+                if(split[0].startsWith("target")){
 
                 }
 

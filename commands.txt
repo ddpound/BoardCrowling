@@ -1,3 +1,0 @@
-targetURI: https://www.naver.com/${}/${}&test?v=${}
-target1: 1
-target2: 2

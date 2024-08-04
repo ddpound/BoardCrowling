@@ -14,6 +14,6 @@ import java.util.List;
 public class CommandModel {
 
     private String targetURI;
-    private List<String> targetList;
+    private List<?> targetList;
 
 }

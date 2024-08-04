@@ -1,0 +1,6 @@
+{
+    "CommandModel": {
+        "targetURI": "https://www.naver.com/${}/${}&test?v=${}",
+        "target": [1,2,"test"]
+    }
+}
