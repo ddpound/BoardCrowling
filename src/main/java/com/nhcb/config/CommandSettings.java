@@ -6,7 +6,9 @@ import com.nhcb.model.CommandModel;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,41 +25,26 @@ public class CommandSettings {
         // ObjectMapper 인스턴스를 생성합니다
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            CommandModel jacksonCommandModel = objectMapper.readValue(new File("data.json"), CommandModel.class);
-            List<String> lines = Files.readAllLines(Paths.get(StaticConfig.commandFilePath).resolve(StaticConfig.commandFileName));
-            for (String line : lines) {
+            File inputJsonFile = new File(String.valueOf(Paths.get(StaticConfig.commandFilePath).resolve(StaticConfig.commandFileName)));
+            CommandModel jacksonCommandModel = objectMapper.readValue(inputJsonFile, CommandModel.class);
 
-                // : 를 기준으로, 라인의 첫번째 : 를 이후로 문자열 추출
-                System.out.println("command line " + line);
-                int subStringIndex = 0;
+            System.out.println("json file read : " + jacksonCommandModel);
 
-                // find :
-                for (int i = 0; i < line.length(); i++) {
-                    if(line.charAt(i) == ':'){
-                        subStringIndex = i;
-                    }
+            ArrayList<Object> targetList = jacksonCommandModel.getTargetList();
 
-                }
+            for (int i = 0; i < targetList.size(); i++) {
+                if(targetList.get(i).getClass().equals(String.class)){
+                    System.out.println("String : "+targetList.get(i));
+                };
 
-                String command = line.substring(subStringIndex);
-                String[] split = line.split(":");
-
-                if(split.length == 0){
-                    System.out.println("not found command");
-                }
-
-                // targetUrI 일때
-                if(split[0].equals("targetURI")){
-
-                }
-
-                // target으로 시작할때
-                if(split[0].startsWith("target")){
-
-                }
-
-
+                if(targetList.get(i).getClass().equals(Integer.class)){
+                    System.out.println("Int : "+targetList.get(i));
+                };
             }
+
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

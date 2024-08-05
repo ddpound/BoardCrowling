@@ -1,7 +1,7 @@
 # 간단한 크롤링 데이터 이전 자동화 프로그램 [beta]
 
 ## 개요 
-부장님께서 데이터 이전 할 게시판 글(게시판 내용, 이미지, 첨부파일, 참고링크)들을 </br>
+데이터 이전 할 게시판 글(게시판 내용, 이미지, 첨부파일, 참고링크)들을 </br>
 한땀한땀 복붙복붙 노가다로 옮기라고 하셔서 그게 싫어서 만든 <br/>
 크롤링 DB 이전 자동화 시스템, 주말에 집에서 혼자 끄적여서 만들었습니다. <br/>
 
@@ -22,4 +22,26 @@
    2. 원하는 html tag 요소의 데이터와 테이블 컬럼과 매핑시켜 insert 가 가능
 
 2. 게시판 내용 별로 추출해서 내용을 txt 파일로 추출하고 관련된 파일들을 뽑아내줌
-3. 
+
+
+
+### 사용방법
+
+
+command 양식 
+```json
+{
+    "targetURI": "https://www.naver.com/${}/${}&test?v=${}",
+    "targetList": [1,2,"test"],
+    "targetURIList": [
+        "https://www.naver.com/1/2&test?v=3",
+        "https://www.naver.com/1/3",
+        "https://www.naver.com/1/4&test?v=5",
+        "https://www.naver.com/2&test?v=${}",
+        "https://www.naver.com/board/14",
+        "https://www.naver.com"
+    ]
+}
+
+
+```
