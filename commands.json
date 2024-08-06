@@ -1,7 +1,29 @@
 {
     "targetURI": "https://www.naver.com/${}/${}&test?v=${}",
-    "targetList": [1,2,"test"],
-    "targetRangeList": [50,4,"test"],
+    "targetLoopNumber" : 20,
+    "targetCommandList" : [
+        {
+            "index" : 0,
+            "startParams" : 1,
+            "type" : "int",
+            "addNumber" : true,
+            "addValue" : 1
+        },
+        {
+            "index" : 2,
+            "startParams" : 2,
+            "type" : "int",
+            "addNumber" : true,
+            "addValue" : 2
+        },
+        {
+            "index" : 3,
+            "startParams" : "test",
+            "type" : "String",
+            "addNumber" : false,
+            "addValue" : 0
+        }
+    ],
     "targetURIList": [
         "https://www.naver.com/1/2&test?v=3",
         "https://www.naver.com/1/3",
@@ -12,27 +34,31 @@
     ],
     "tableName" : "testTable",
     "columnList" : ["board_title", "insert_date","file_group_id"],
-    "linkElementName" : [
+    "linkElementObjectList" : [
         {
             "columnName" : "board_title",
             "element" :  "div",
             "elementFind" : "id",
             "elementName" : "board_tit",
-            "file" : false
+            "file" : false,
+            "nullableOrElseGet" : "데이터 이전 입니다.",
+            "nullableOrPass" : false
         },
         {
             "columnName" : "board_content",
             "element" :  "div",
             "elementFind" : "id",
             "elementName" : "boardContent",
-            "file" : false
+            "file" : false,
+            "nullableOrElseGet" : "데이터 이전 입니다."
         },
         {
             "columnName" : "board_file",
             "element" :  "div",
             "elementFind" : "id",
             "elementName" : "board_tit",
-            "file" : false
+            "file" : false,
+            "nullableOrElseGet" : "데이터 이전 입니다."
         },
         {
             "columnName" : "file_group_id",
@@ -40,7 +66,8 @@
             "elementFind" : "class",
             "elementName" : "file-list",
             "file" : true,
-            "openWindowDownload": true
+            "openWindowDownload": true,
+            "id" : "1"
         }
     ],
     "fileDownloadFilePath" : ""

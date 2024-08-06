@@ -22,8 +22,6 @@ import java.util.UUID;
  * */
 public class FileManager {
 
-
-
     public static void downloadAllFiles(String pageUrl,String fileGroupId) throws IOException {
         WebDriver driver = null;
         try {

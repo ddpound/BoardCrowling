@@ -29,19 +29,86 @@
 
 
 command 양식 
+
+@param (nullableOrElseGet) : null일때 대체할 값을 표기, ()  
+@param (nullableOrPass) : null 이면 insert 없이 pass할지 안할지 체크 (true면 insert 안하고 pass)
+
+
 ```json
 {
-    "targetURI": "https://www.naver.com/${}/${}&test?v=${}",
-    "targetList": [1,2,"test"],
-    "targetURIList": [
-        "https://www.naver.com/1/2&test?v=3",
-        "https://www.naver.com/1/3",
-        "https://www.naver.com/1/4&test?v=5",
-        "https://www.naver.com/2&test?v=${}",
-        "https://www.naver.com/board/14",
-        "https://www.naver.com"
-    ]
+   "targetURI": "https://www.naver.com/${}/${}&test?v=${}",
+   "targetLoopNumber" : 20,
+   "targetCommandList" : [
+      {
+         "index" : 0,
+         "startParams" : 1,
+         "type" : "int",
+         "addNumber" : true,
+         "addValue" : 1
+      },
+      {
+         "index" : 2,
+         "startParams" : 2,
+         "type" : "int",
+         "addNumber" : true,
+         "addValue" : 2
+      },
+      {
+         "index" : 3,
+         "startParams" : "test",
+         "type" : "String",
+         "addNumber" : false,
+         "addValue" : 0
+      }
+   ],
+   "targetURIList": [
+      "https://www.naver.com/1/2&test?v=3",
+      "https://www.naver.com/1/3",
+      "https://www.naver.com/1/4&test?v=5",
+      "https://www.naver.com/2&test?v=${}",
+      "https://www.naver.com/board/14",
+      "https://www.naver.com"
+   ],
+   "tableName" : "testTable",
+   "columnList" : ["board_title", "insert_date","file_group_id"],
+   "linkElementObjectList" : [
+      {
+         "columnName" : "board_title",
+         "element" :  "div",
+         "elementFind" : "id",
+         "elementName" : "board_tit",
+         "file" : false,
+         "nullableOrElseGet" : "데이터 이전 입니다."
+      },
+      {
+         "columnName" : "board_content",
+         "element" :  "div",
+         "elementFind" : "id",
+         "elementName" : "boardContent",
+         "file" : false,
+         "nullableOrElseGet" : "데이터 이전 입니다."
+      },
+      {
+         "columnName" : "board_file",
+         "element" :  "div",
+         "elementFind" : "id",
+         "elementName" : "board_tit",
+         "file" : false,
+         "nullableOrElseGet" : "데이터 이전 입니다."
+      },
+      {
+         "columnName" : "file_group_id",
+         "element" :  "p",
+         "elementFind" : "class",
+         "elementName" : "file-list",
+         "file" : true,
+         "openWindowDownload": true,
+         "id" : "1"
+      }
+   ],
+   "fileDownloadFilePath" : ""
 }
+
 
 
 ```

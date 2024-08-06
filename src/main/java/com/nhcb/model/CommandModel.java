@@ -18,5 +18,9 @@ public class CommandModel {
     private ArrayList<String> targetURIList;
     private ArrayList<Object> targetList;
     private ArrayList<Object> targetRangeList;
+    private String tableName;
+    private ArrayList<String> columnList;
+    private ArrayList<LinkElementObject> linkElementObjectList;
+    private String fileDownloadFilePath;
 
 }

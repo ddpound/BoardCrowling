@@ -1,6 +1,7 @@
 package com.nhcb.config;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ public class StaticConfig {
     // DB table, column data setting
     public static String tableName;
     public static ArrayList<String> columnNameList;
+    public static HashMap<String,String> columnNameMap;
 
     public static String commandFilePath;
     public static String commandFileName;
