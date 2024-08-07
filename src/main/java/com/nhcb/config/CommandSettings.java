@@ -32,18 +32,6 @@ public class CommandSettings {
 
             ArrayList<Object> targetList = jacksonCommandModel.getTargetList();
 
-            for (int i = 0; i < targetList.size(); i++) {
-                if(targetList.get(i).getClass().equals(String.class)){
-                    System.out.println("String : "+targetList.get(i));
-                };
-
-                if(targetList.get(i).getClass().equals(Integer.class)){
-                    System.out.println("Int : "+targetList.get(i));
-                };
-            }
-
-
-
 
         } catch (IOException e) {
             e.printStackTrace();

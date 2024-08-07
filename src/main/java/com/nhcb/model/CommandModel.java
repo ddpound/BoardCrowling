@@ -22,5 +22,7 @@ public class CommandModel {
     private ArrayList<String> columnList;
     private ArrayList<LinkElementObject> linkElementObjectList;
     private String fileDownloadFilePath;
+    private String targetLoopNumber;
+    private ArrayList<TargetParamsSetting> targetParamsSettingList;
 
 }

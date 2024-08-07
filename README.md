@@ -30,33 +30,42 @@
 
 command 양식 
 
-@param (nullableOrElseGet) : null일때 대체할 값을 표기, ()  
-@param (nullableOrPass) : null 이면 insert 없이 pass할지 안할지 체크 (true면 insert 안하고 pass)
+targetURI : 실행시킬 uri 주소
+targetLoopNumber : 반복할 횟수
+
+#### targetParamsSettingList (각 ${} 값에 들어갈 세팅값, ${}값에 맞춰 세팅값을 넣어주세요.)
+1. index : 순서 , 몇번째 ${} 인지 
+2. startParams : 시작값
+3. addNumber : 값을 추가 시킬지 판단 여부 false면 addValue 가 있어도 추가가 안된다.
+4. addValue : 추가될 값
+
+
+nullableOrElseGet : null일때 대체할 값을 표기, ()
+nullableOrPass : null 이면 insert 없이 pass할지 안할지 체크 (true면 insert 안하고 pass)
+
+
 
 
 ```json
 {
    "targetURI": "https://www.naver.com/${}/${}&test?v=${}",
    "targetLoopNumber" : 20,
-   "targetCommandList" : [
+   "targetParamsSettingList" : [
       {
          "index" : 0,
          "startParams" : 1,
-         "type" : "int",
          "addNumber" : true,
          "addValue" : 1
       },
       {
-         "index" : 2,
+         "index" : 1,
          "startParams" : 2,
-         "type" : "int",
          "addNumber" : true,
          "addValue" : 2
       },
       {
-         "index" : 3,
+         "index" : 2,
          "startParams" : "test",
-         "type" : "String",
          "addNumber" : false,
          "addValue" : 0
       }
@@ -78,7 +87,8 @@ command 양식
          "elementFind" : "id",
          "elementName" : "board_tit",
          "file" : false,
-         "nullableOrElseGet" : "데이터 이전 입니다."
+         "nullableOrElseGet" : "데이터 이전 입니다.",
+         "nullableOrPass" : false
       },
       {
          "columnName" : "board_content",
@@ -108,6 +118,7 @@ command 양식
    ],
    "fileDownloadFilePath" : ""
 }
+
 
 
 

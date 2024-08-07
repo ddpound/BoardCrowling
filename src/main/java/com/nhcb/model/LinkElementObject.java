@@ -17,4 +17,6 @@ public class LinkElementObject {
     private String file;
     private String openWindowDownload;
     private String id;
+    private Boolean nullableOrPass;
+    private Object nullableOrElseGet;
 }

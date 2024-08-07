@@ -1,25 +1,22 @@
 {
     "targetURI": "https://www.naver.com/${}/${}&test?v=${}",
     "targetLoopNumber" : 20,
-    "targetCommandList" : [
+    "targetParamsSettingList" : [
         {
             "index" : 0,
             "startParams" : 1,
-            "type" : "int",
             "addNumber" : true,
             "addValue" : 1
         },
         {
-            "index" : 2,
+            "index" : 1,
             "startParams" : 2,
-            "type" : "int",
             "addNumber" : true,
             "addValue" : 2
         },
         {
-            "index" : 3,
+            "index" : 2,
             "startParams" : "test",
-            "type" : "String",
             "addNumber" : false,
             "addValue" : 0
         }
